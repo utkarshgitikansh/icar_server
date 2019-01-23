@@ -1,210 +1,566 @@
-const req = require('request');
-const cheerio = require('cheerio');
 const express = require('express');
 var https = require('https');
 var http = require('http');
 var bodyParser = require('body-parser');
+var multer = require('multer'); 
 var querystring = require('querystring'); 
+var upload = multer(); 
 
 const app = express();
 
-// app.use(function(req, res, next){
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true })); 
 
-//     res.header('Access-Control-Allow-Origin', "*");
-//     res.header('Access-Control-Allow-Methods', 'GET', 'PUT', 'POST', 'DELETE');
-//     res.header('Access-Control-Allow-Header','Content-Type');
-//     next();
-//   })
+
+var map = new Array();
+var m;
+i = 0;
+
+
+app.use(function(req, res, next){
+
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods', 'GET', 'PUT', 'POST', 'DELETE');
+  res.header('Access-Control-Allow-Header','Content-Type');
+  next();
+})
+
+global.data = "data";
+global.value = "value";
+global.current = "current";
+global.stats = "new";
+global.playerPID = "x";
+global.playerData = "dhoni";
+global.weather = "clear";
+
+const PORT = process.env.PORT || 8080;
+
+
+  app.listen(PORT, () => {
   
-const PORT = process.env.PORT || 8000;
-
-console.log("Now loading the site ...");
-
-
-app.listen(PORT, () => {
-
-    console.log("yay");
   
-    // //// Requesting the site for response ///////
-
-    // req('http://www.nrclitchi.org/', (error, response, html) => {
-
-
-    // if (!error && response.statusCode == 200) {
-
-    //     console.log("So far so good ...");
-
-    //     ///// Using cheerio to fetch the site details//////
-
-    //     const $ = cheerio.load(html);
-
-    //     ///// '$' will be used as a reference to getting all website details ///////  
-
-    //     const siteHeading = $('.header-row');
-    //     console.log('\n\n');
-
-
-    //     console.log("Getting Headers ..." + '\n\n\n');
-
-    //     const site_header = siteHeading.text().replace(/\s\s+/g, ' ');
-    //     console.log(site_header + '\n');
-    //     console.log('\n\n');
-
-
-    //     //// Looping over tags with id (notice)
-
-    //     console.log("Getting Notices ..." + '\n\n\n');
-
-    //     var notices_name = {} 
-    //     var notices_url = {} 
+    http.get('http://cricapi.com/api/matches/YQcxw12HpBMe1UaJ6TsKtZTC3Br2', (res) => {
     
-    //     var key1 = 'notices_name';
-    //     var key2 = 'notices_url';
-     
-    //     notices_name[key1] = [];
-    //     notices_url[key2] = []; 
-
-    //     $('#notice a').each((i, el) => {
-
-    //         const notice_name = $(el).attr('title');
-    //         const notice_url = $(el).attr('href');
-            
-    //         notices_name[key1].push(notice_name);          
-    //         notices_url[key2].push(notice_url);
-
-    //     })
-
-    //     console.log(notices_name);
-    //     console.log(notices_url);
-    //     console.log('\n\n');
-
-
-    //     /// News and events
-
-    //     console.log("Getting News and Events ..." + '\n\n\n');
-
-    //     var new_name = {} 
-    //     var new_url = {} 
-    
-    //     var key1 = 'news_name';
-    //     var key2 = 'news_url';
-     
-    //     new_name[key1] = [];
-    //     new_url[key2] = []; 
-
-    //     $('#news a').each((i, el) => {
-
-    //         const news_name = $(el).attr('title');
-    //         const news_url = $(el).attr('href');
-            
-    //         new_name[key1].push(news_name);          
-    //         new_url[key2].push(news_url);
-
-    //     })
-
-    //     console.log(new_name);
-    //     console.log(new_url);
-    //     console.log('\n\n');
-
-
-    //     /// Tenders
-
-    //     console.log("Getting Tenders ..." + '\n\n\n');
-
-    //     var tender_name = {} 
-    //     var tender_url = {} 
-    
-    //     var key1 = 'tender_name';
-    //     var key2 = 'tender_url';
-     
-    //     tender_name[key1] = [];
-    //     tender_url[key2] = []; 
-
-    //     $('#tenders a').each((i, el) => {
-
-    //         const tenders_name = $(el).attr('title');
-    //         const tenders_url = $(el).attr('href');
-           
-    //         tender_name[key1].push(tenders_name);          
-    //         tender_url[key2].push(tenders_url);     
-
-    //     })
-       
-    //     console.log(tender_name);
-    //     console.log(tender_url);
-    //     console.log('\n\n');
-
-    //     /// Recruitments
-        
-
-    //     console.log("Getting Recruitment ..." + '\n\n\n');
-
-    //     var recruit_name = {} 
-    //     var recruit_url = {} 
-    
-    //     var key1 = 'recruit_name';
-    //     var key2 = 'recruit_url';
-     
-    //     recruit_name[key1] = [];
-    //     recruit_url[key2] = []; 
-
-    //     $('#recruitment a').each((i, el) => {
-
-    //         const recruitment_name = $(el).attr('title');
-    //         const recruitment_url = $(el).attr('href');
-        
-    //         recruit_name[key1].push(recruitment_name);          
-    //         recruit_url[key2].push(recruitment_url);      
- 
-    //     })
-
-       
-    //     console.log(recruit_name);
-    //     console.log(recruit_url);
-    //     console.log('\n\n');
-
-    //     /// Upcoming Events
-
-    //      console.log("Getting Upcoming Events ..." + '\n\n\n');
-
-    //      $('#list list-icons a').each((i, el) => {
- 
-    //          const event_name = $(el).attr('title');
-    //          const event_url = $(el).attr('href');
-    //          console.log(event_name + '\n');
-    //          console.log(event_url + '\n');
- 
-    //      })
-
-     
-    //     // res.send(weather_data);
-    //     // Following console.log to be copnverted to res.send later to be
-    //     // uploaded to the server later
-
-    //     //console.log(site_header);
-
-          
-    // }
-
-    
-// });
-
-
-
-
-//   }).on('error', (e) => {
   
-//     console.error(`Got error: ${e.message}`);
+    const { statusCode } = res;
+    const contentType = res.headers['content-type'];
+   
+    let error;
+    if (statusCode !== 200) {
+      error = new Error('Request Failed.\n' +
+                        `Status Code: ${statusCode}`);
+    } else if (!/^application\/json/.test(contentType)) {
+      error = new Error('Invalid content-type.\n' +
+                        `Expected application/json but received ${contentType}`);
+    }
+    if (error) {
+      console.error(error.message);
+  
+      res.resume();
+      return;
+    }
+  
+
+    let rawData = '';
+    res.on('data', (chunk) => { rawData += chunk; });
+    res.on('end', () => {
+      try {
+        const parsedData = JSON.parse(rawData);
+        value = parsedData;
+        console.log(parsedData);
+        m = parsedData.matches.length;
+  
+      } catch (e) {
+        console.error(e.message);
+      }
+  
+  
+   
+  
+    });
+  }).on('error', (e) => {
+  
+    console.error(`Got error: ${e.message}`);
+  });
 
 });
+ 
 
-app.get('/test1', (req, res) => { 
+app.get('/cricket', (req, res) => {
+
+
+
+   var matches = {} 
+   var match_score = {} 
+   
+
+    
+    var key1 = 'current_matches';
+    var key3 = 'score';
+    matches[key1] = []; 
+    match_score[key3] = []; 
+    
+    for (var i = 0; i<m; i++){
+    
+     {
+          
+      var data = {
+
+        id: value.matches[i]["unique_id"],
+        teamA: value.matches[i]["team-1"],
+        teamB: value.matches[i]["team-2"],
+        toss: value.matches[i]["toss_winner_team"],
+        winner: value.matches[i]["winner_team"],
+        type: value.matches[i]["type"],
+        date: value.matches[i]["dateTimeGMT"],
+
+        
+    }; 
+
+    if(value.matches[i]["winner_team"] == null || value.matches[i]["matchStarted"] == true) {
+    matches[key1].push(data);
+   
+    }
+  }
+  }
+   
+  
+  var key2 = 'upcoming_matches';
+  matches[key2] = []; 
+
+
+  for (var i = 0; i<m; i++){
+    
+    {
+       
+     var data = {
+
+       id: value.matches[i]["unique_id"],
+       teamA: value.matches[i]["team-1"],
+       teamB: value.matches[i]["team-2"],
+       toss: value.matches[i]["toss_winner_team"],
+       winner: value.matches[i]["winner_team"],
+       type: value.matches[i]["type"],
+       date: value.matches[i]["dateTimeGMT"]
+       
+   }; 
+
+   if(value.matches[i]["matchStarted"] == false) {
+   matches[key2].push(data);
      
+   }
+ }
+ }
 
-    res.send("recruit_url");
+    
+    
+    
+    res.send(matches);
   
   
   }).on('error', (e) => {
   
     console.error(`Got error: ${e.message}`);
   });
+
+
+app.get('/timestamp', (req, res) => {
+   
+            
+   res.send(value);
+
+      }).on('error', (e) => {
+      
+        console.error(`Got error: ${e.message}`);
+      
+})
+
+app.get('/timestamp-cached', (req1, res) => {
+   res.send("Future of something cool!!");
+   
+})
+
+app.get('/score', (req, res) => {
+
+  id = req.query.unique_id; 
+
+  http.get(`http://cricapi.com/api/cricketScore/YQcxw12HpBMe1UaJ6TsKtZTC3Br2?unique_id=${id}`, (res) => {
+    
+  
+    const { statusCode } = res;
+    const contentType = res.headers['content-type'];
+   
+    let error;
+    if (statusCode !== 200) {
+      error = new Error('Request Failed.\n' +
+                        `Status Code: ${statusCode}`);
+    } else if (!/^application\/json/.test(contentType)) {
+      error = new Error('Invalid content-type.\n' +
+                        `Expected application/json but received ${contentType}`);
+    }
+    if (error) {
+      console.error(error.message);
+  
+      res.resume();
+      return;
+    }
+  
+    
+    let rawData = '';
+    res.on('data', (chunk) => { rawData += chunk; });
+    res.on('end', () => {
+      try {
+        const parsedData = JSON.parse(rawData);
+        stats = parsedData;
+       
+    
+      } catch (e) {
+        console.error(e.message);
+      }
+  
+  
+   
+  
+    });
+  }).on('error', (e) => {
+  
+    console.error(`Got error: ${e.message}`);
+  });
+
+  res.send(stats["score"]);
+
+})
+
+
+app.get('/playerBio', (req, res) => {
+
+  name = req.query.name; 
+
+  http.get(`http://cricapi.com/api/playerFinder/YQcxw12HpBMe1UaJ6TsKtZTC3Br2?name=${name}`, (res) => {
+    
+  
+    const { statusCode } = res;
+    const contentType = res.headers['content-type'];
+   
+    let error;
+    if (statusCode !== 200) {
+      error = new Error('Request Failed.\n' +
+                        `Status Code: ${statusCode}`);
+    } else if (!/^application\/json/.test(contentType)) {
+      error = new Error('Invalid content-type.\n' +
+                        `Expected application/json but received ${contentType}`);
+    }
+    if (error) {
+      console.error(error.message);
+  
+      res.resume();
+      return;
+    }
+  
+    
+    let rawData = '';
+    res.on('data', (chunk) => { rawData += chunk; });
+    res.on('end', () => {
+      try {
+        const parsedData = JSON.parse(rawData);
+        playerPID = parsedData.data[0]["pid"];
+      
+        ///////////////////////////////////
+
+        http.get(`http://cricapi.com/api/playerStats/YQcxw12HpBMe1UaJ6TsKtZTC3Br2?pid=${playerPID}`, (res1) => {
+    
+  
+          const { statusCode } = res1;
+          const contentType = res1.headers['content-type'];
+         
+          let error;
+          if (statusCode !== 200) {
+            error = new Error('Request Failed.\n' +
+                              `Status Code: ${statusCode}`);
+          } else if (!/^application\/json/.test(contentType)) {
+            error = new Error('Invalid content-type.\n' +
+                              `Expected application/json but received ${contentType}`);
+          }
+          if (error) {
+            console.error(error.message);
+        
+            res1.resume();
+            return;
+          }
+        
+          
+          let raw1Data = '';
+          res1.on('data', (chunk) => { raw1Data += chunk; });
+          res1.on('end', () => {
+            try {
+              const parsed1Data = JSON.parse(raw1Data);
+              playerData = parsed1Data;
+            
+            ///console.log(playerName);
+          //////////////////////////////////////
+
+
+       
+          ///////////////////////////////////////
+            } catch (e) {
+              console.error(e.message);
+            }
+        
+        
+         
+        
+          });
+        }).on('error', (e) => {
+        
+          console.error(`Got error: ${e.message}`);
+        });
+
+
+
+        //////////////////////////////////
+      } catch (e) {
+        console.error(e.message);
+      }
+  
+  
+   
+  
+    });
+  }).on('error', (e) => {
+  
+    console.error(`Got error: ${e.message}`);
+  });
+
+////////////
+   var record = {} 
+   var match_score = {} 
+   
+
+    
+    var key1 = 'info';
+    var key2 = 'ODIs';
+    var key3 = 'tests';
+    var key4 = 'T20Is';
+    //var key3 = 'score';
+    record[key1] = []; 
+    record[key2] = []; 
+    record[key3] = []; 
+    record[key4] = []; 
+    //match_score[key3] = []; 
+    
+    var role = new String();
+    role = playerData.playingRole;
+    console.log(role);
+
+    if (role == null){
+        role = "cricketer"
+    }
+    if( role.includes("batsman")|| role == "cricketer") {
+          
+      var data = {
+
+        full_name: playerData.fullName,
+        name: playerData.name,
+        player_role: playerData.playingRole,
+        teams: playerData.majorTeams,
+        battingStyle: playerData.battingStyle        
+    
+      }
+      record[key1].push(data);
+
+      var data = {
+
+        runs: playerData.data.batting.ODIs.Runs,
+        matches: playerData.data.batting.ODIs.Mat,
+        innings: playerData.data.batting.ODIs.Inns,
+        hundreds: playerData.data.batting.ODIs["100"],
+        fifties: playerData.data.batting.ODIs["50"],        
+        highest: playerData.data.batting.ODIs.HS        
+      }
+
+      record[key2].push(data);
+
+      var data = {
+
+        runs: playerData.data.batting.tests.Runs,
+        matches: playerData.data.batting.tests.Mat,
+        innings: playerData.data.batting.tests.Inns,
+        hundreds: playerData.data.batting.tests["100"],
+        fifties: playerData.data.batting.tests["50"],
+        highest: playerData.data.batting.ODIs.HS         
+
+      }
+
+      record[key3].push(data);
+
+      var data = {
+
+        runs: playerData.data.batting.T20Is.Runs,
+        matches: playerData.data.batting.T20Is.Mat,
+        innings: playerData.data.batting.T20Is.Inns,
+        hundreds: playerData.data.batting.T20Is["100"],
+        fifties: playerData.data.batting.T20Is["50"],
+        highest: playerData.data.batting.T20Is.HS         
+
+      }
+      
+      record[key4].push(data);
+      ///////////////////////
+    }
+
+    else {
+
+
+      var data = {
+
+        full_name: playerData.fullName,
+        name: playerData.name,
+        player_role: playerData.playingRole,
+        teams: playerData.majorTeams,
+        bowlingStyle: playerData.bowlingStyle        
+    
+      }
+      record[key1].push(data);
+
+      var data = {
+
+        
+        matches: playerData.data.bowling.ODIs.Mat,
+        innings: playerData.data.bowling.ODIs.Inns,
+        wickets: playerData.data.bowling.ODIs.Wkts,
+        average: playerData.data.bowling.ODIs.Ave,
+        "4WI": playerData.data.bowling.ODIs["4w"],        
+        best_figures: playerData.data.bowling.ODIs.BBI        
+      }
+
+      record[key2].push(data);
+
+      var data = {
+
+        matches: playerData.data.bowling.tests.Mat,
+        innings: playerData.data.bowling.tests.Inns,
+        wickets: playerData.data.bowling.tests.Wkts,
+        average: playerData.data.bowling.tests.Ave,
+        "4WI": playerData.data.bowling.tests["4w"],        
+        best_figures: playerData.data.bowling.tests.BBI        
+
+      }
+
+      record[key3].push(data);
+      if(playerData.hasOwnProperty(`data.bowling.T20Is`)){
+      var data = {
+
+       
+
+        matches: playerData.data.bowling.T20Is.Mat,
+        innings: playerData.data.bowling.T20Is.Inns,
+        wickets: playerData.data.bowling.T20Is.Wkts,
+        average: playerData.data.bowling.T20Is.Ave,
+        "4WI": playerData.data.bowling.T20Is["4w"],        
+        best_figures: playerData.data.bowling.T20Is.BBI        
+      
+    }
+  }
+
+    }
+    
+     res.send(record);
+////////////
+  // res.send(`PID is `+ playerPID);
+  // res.send(playerData);
+
+})
+
+app.get('/weather', (req, res) => {
+   
+  city = req.query.city;
+  state = req.query.state;     
+ 
+
+  http.get(`http://api.wunderground.com/api/99dfe35fcb7de1ee/conditions/q/${state}/${city}.json`, (res) => {
+
+    const { statusCode } = res;
+    const contentType = res.headers['content-type'];
+   
+    let error;
+    if (statusCode !== 200) {
+      error = new Error('Request Failed.\n' +
+                        `Status Code: ${statusCode}`);
+    } else if (!/^application\/json/.test(contentType)) {
+      error = new Error('Invalid content-type.\n' +
+                        `Expected application/json but received ${contentType}`);
+    }
+    if (error) {
+      console.error(error.message);
+  
+      res.resume();
+      return;
+    }
+  
+    
+    let rawData = '';
+    res.on('data', (chunk) => { rawData += chunk; });
+    res.on('end', () => {
+      try {
+        const parsedData = JSON.parse(rawData);
+        weather = parsedData;
+       
+    
+      } catch (e) {
+        console.error(e.message);
+      }
+  
+  
+   
+  
+    });
+  }).on('error', (e) => {
+  
+    console.error(`Got error: ${e.message}`);
+  });
+  
+  ////////////////////////
+
+   var weather_data = {} 
+    
+    var key1 = 'temperature';
+
+    weather_data[key1] = []; 
+              
+      var data = {
+
+        full_name: weather.current_observation.display_location["full"],
+        observation_time: weather.current_observation.observation_time,
+        weather: weather.current_observation.weather,
+        temp_celsius: weather.current_observation.temp_c,
+        relative_humidity: weather.current_observation.relative_humidity,        
+        wind_string:weather.current_observation.wind_string,
+        feels_like_celsius:weather.current_observation.feelslike_c,
+        visibility_km:weather.current_observation.visibility_km,
+        icon_url:weather.current_observation.icon_url,
+        precip_today_in:weather.current_observation.precip_today_in
+      }
+      weather_data[key1].push(data);
+
+  ///////////////////////
+
+  res.send(weather_data);
+
+}).on('error', (e) => {
+
+  console.error(`Got error: ${e.message}`);
+
+})
+
+
+
+app.get('/test', (req, res) => {
+   
+
+ 
+
+     }).on('error', (e) => {
+     
+       console.error(`Got error: ${e.message}`);
+     
+})
