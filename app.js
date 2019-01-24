@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer'); 
 var querystring = require('querystring'); 
 var upload = multer(); 
-const req = require('request');
+//const req = require('request');
 const cheerio = require('cheerio');
 
 
