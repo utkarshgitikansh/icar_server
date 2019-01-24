@@ -6,7 +6,7 @@ var multer = require('multer');
 var querystring = require('querystring'); 
 var upload = multer(); 
 //const req = require('request');
-const cheerio = require('cheerio');
+var cheerio = require('cheerio');
 
 
 const app = express();
