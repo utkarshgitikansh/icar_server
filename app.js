@@ -5,6 +5,15 @@ var bodyParser = require('body-parser');
 var multer = require('multer'); 
 var querystring = require('querystring'); 
 var upload = multer(); 
+const req = require('request');
+const cheerio = require('cheerio');
+const express = require('express');
+var https = require('https');
+var http = require('http');
+var bodyParser = require('body-parser');
+var querystring = require('querystring'); 
+
+const app = express();
 
 const app = express();
 
@@ -17,7 +26,13 @@ var m;
 i = 0;
 
 
+app.use(function(req, res, next){
 
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods', 'GET', 'PUT', 'POST', 'DELETE');
+  res.header('Access-Control-Allow-Header','Content-Type');
+  next();
+})
 
 global.data = "data";
 global.value = "value";
@@ -79,9 +94,6 @@ const PORT = process.env.PORT || 8080;
 
 });
  
-
-
-
 app.get('/test', (req, res) => {
    
 
