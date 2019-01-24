@@ -7,15 +7,10 @@ var querystring = require('querystring');
 var upload = multer(); 
 const req = require('request');
 const cheerio = require('cheerio');
-const express = require('express');
-var https = require('https');
-var http = require('http');
-var bodyParser = require('body-parser');
-var querystring = require('querystring'); 
+
 
 const app = express();
 
-const app = express();
 
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true })); 
