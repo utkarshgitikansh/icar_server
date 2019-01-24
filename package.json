@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prestart": "next build",
+    "prestart": "npm install cheerio",
     "start": "node app.js"
   },
   "repository": {
