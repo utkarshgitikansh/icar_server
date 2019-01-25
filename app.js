@@ -94,8 +94,8 @@ const PORT = process.env.PORT || 8080;
             const notice_name = $(el).attr('title');
             const notice_url = $(el).attr('href');
             
-            notices_name[key1].push(notice_name);          
-            notices_url[key2].push(notice_url);
+            notices_name[key1].push(notice_name, notice_url);          
+            //notices_url[key2].push(notice_url);
 
         })
 
@@ -124,14 +124,14 @@ const PORT = process.env.PORT || 8080;
             const news_name = $(el).attr('title');
             const news_url = $(el).attr('href');
             
-            new_name[key1].push(news_name);          
-            new_url[key2].push(news_url);
+            new_name[key1].push(news_name, news_url);          
+            //new_url[key2].push(news_url);
 
         })
 
         new_name_value = new_name;
         console.log(new_name);
-        new_url_value = new_url;
+        //new_url_value = new_url;
         console.log(new_url);
         console.log('\n\n');
 
@@ -154,14 +154,14 @@ const PORT = process.env.PORT || 8080;
             const tenders_name = $(el).attr('title');
             const tenders_url = $(el).attr('href');
            
-            tender_name[key1].push(tenders_name);          
-            tender_url[key2].push(tenders_url);     
+            tender_name[key1].push(tenders_name,tenders_url);          
+            // tender_url[key2].push(tenders_url);     
 
         })
 
         tender_name_value = tender_name;
         console.log(tender_name);
-        tender_url_value = tender_url;
+        //tender_url_value = tender_url;
         console.log(tender_url);
         console.log('\n\n');
 
@@ -184,14 +184,14 @@ const PORT = process.env.PORT || 8080;
             const recruitment_name = $(el).attr('title');
             const recruitment_url = $(el).attr('href');
         
-            recruit_name[key1].push(recruitment_name);          
-            recruit_url[key2].push(recruitment_url);      
+            recruit_name[key1].push(recruitment_name, recruitment_url);          
+            //recruit_url[key2].push(recruitment_url);      
  
         })
 
         recruit_name_value = recruit_name;
         console.log(recruit_name);
-        recruit_url_value = recruit_url;
+        //recruit_url_value = recruit_url;
         console.log(recruit_url);
         console.log('\n\n');
 
@@ -241,9 +241,9 @@ app.get('/', (req, res) => {
 app.get('/notices', (req, res) => { 
      
 
-    res.send(notices_name_value);
-    res.send(notices_url_value );
-  
+      res.send(notices_name_value);
+      // res.send(notices_url_value);
+   
   
   }).on('error', (e) => {
   
@@ -253,8 +253,8 @@ app.get('/notices', (req, res) => {
   app.get('/news', (req, res) => { 
      
 
-    res.send(new_name_value + '\n\n');
-    res.send(new_url_value + '\n\n');
+    res.send(new_name_value);
+    // res.send(new_url_value);
   
   }).on('error', (e) => {
   
@@ -265,8 +265,8 @@ app.get('/notices', (req, res) => {
   app.get('/tenders', (req, res) => { 
      
 
-    res.send(tender_name_value + '\n\n');
-    res.send(tender_url_value + '\n\n');
+    res.send(tender_name_value);
+    // res.send(tender_url_value + '\n\n');
   
   
   }).on('error', (e) => {
@@ -277,8 +277,8 @@ app.get('/notices', (req, res) => {
 
   app.get('/recruitments', (req, res) => { 
      
-    res.send(recruit_name_value + '\n\n');
-    res.send(recruit_url_value + '\n\n');
+    res.send(recruit_name_value);
+    // res.send(recruit_url_value + '\n\n');
   
   
   }).on('error', (e) => {
