@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer'); 
 var querystring = require('querystring'); 
 var upload = multer(); 
-//const req = require('request');
+const req = require('request');
 var cheerio = require('cheerio');
 
 
@@ -92,7 +92,7 @@ const PORT = process.env.PORT || 8080;
 app.get('/test', (req, res) => {
    
 
- 
+ res.send("vimaal");
 
      }).on('error', (e) => {
      
