@@ -30,6 +30,9 @@ app.use(function(req, res, next){
 })
 
 
+global.data = "data";
+global.value = "value";
+
 const PORT = process.env.PORT || 8080;
 
 
@@ -140,7 +143,9 @@ const PORT = process.env.PORT || 8080;
             tender_url[key2].push(tenders_url);     
 
         })
-       
+
+        data = tender_url;
+
         console.log(tender_name);
         console.log(tender_url);
         console.log('\n\n');
@@ -205,7 +210,7 @@ const PORT = process.env.PORT || 8080;
 app.get('/test1', (req, res) => { 
      
 
-    res.send("recruit_url");
+    res.send(data);
   
   
   }).on('error', (e) => {
