@@ -30,8 +30,17 @@ app.use(function(req, res, next){
 })
 
 
-global.data = "data";
-global.value = "value";
+global.site_header_value = "site_header";
+global.notices_name_value = [];
+global.notices_url_value = [];
+global.new_name_value = [];
+global.new_url_value = [];
+global.tender_name_value = [];
+global.tender_url_value = [];
+global.recruit_name_value = [];
+global.recruit_url_value = [];
+
+
 
 const PORT = process.env.PORT || 8080;
 
@@ -61,10 +70,12 @@ const PORT = process.env.PORT || 8080;
         console.log("Getting Headers ..." + '\n\n\n');
 
         const site_header = siteHeading.text().replace(/\s\s+/g, ' ');
+
+        site_header_value = site_header;
         console.log(site_header + '\n');
         console.log('\n\n');
 
-
+        ///  Notices
         //// Looping over tags with id (notice)
 
         console.log("Getting Notices ..." + '\n\n\n');
@@ -88,7 +99,9 @@ const PORT = process.env.PORT || 8080;
 
         })
 
+        notices_name_value = notices_name;
         console.log(notices_name);
+        notices_url_value = notices_url;
         console.log(notices_url);
         console.log('\n\n');
 
@@ -116,7 +129,9 @@ const PORT = process.env.PORT || 8080;
 
         })
 
+        new_name_value = new_name;
         console.log(new_name);
+        new_url_value = new_url;
         console.log(new_url);
         console.log('\n\n');
 
@@ -144,9 +159,9 @@ const PORT = process.env.PORT || 8080;
 
         })
 
-        data = tender_url;
-
+        tender_name_value = tender_name;
         console.log(tender_name);
+        tender_url_value = tender_url;
         console.log(tender_url);
         console.log('\n\n');
 
@@ -174,8 +189,9 @@ const PORT = process.env.PORT || 8080;
  
         })
 
-       
+        recruit_name_value = recruit_name;
         console.log(recruit_name);
+        recruit_url_value = recruit_url;
         console.log(recruit_url);
         console.log('\n\n');
 
@@ -207,7 +223,71 @@ const PORT = process.env.PORT || 8080;
 
 });
 
-app.get('/test1', (req, res) => { 
+
+/// Uploading on different routes
+
+app.get('/', (req, res) => { 
+     
+
+  res.send(site_header_value);
+
+
+}).on('error', (e) => {
+
+  console.error(`Got error: ${e.message}`);
+});
+
+
+app.get('/notices', (req, res) => { 
+     
+
+    res.send(notices_name_value);
+    res.send(notices_url_value );
+  
+  
+  }).on('error', (e) => {
+  
+    console.error(`Got error: ${e.message}`);
+  });
+
+  app.get('/news', (req, res) => { 
+     
+
+    res.send(new_name_value + '\n\n');
+    res.send(new_url_value + '\n\n');
+  
+  }).on('error', (e) => {
+  
+    console.error(`Got error: ${e.message}`);
+  });
+
+
+  app.get('/tenders', (req, res) => { 
+     
+
+    res.send(tender_name_value + '\n\n');
+    res.send(tender_url_value + '\n\n');
+  
+  
+  }).on('error', (e) => {
+  
+    console.error(`Got error: ${e.message}`);
+  });
+
+
+  app.get('/recruitments', (req, res) => { 
+     
+    res.send(recruit_name_value + '\n\n');
+    res.send(recruit_url_value + '\n\n');
+  
+  
+  }).on('error', (e) => {
+  
+    console.error(`Got error: ${e.message}`);
+  });
+
+
+  app.get('/test1', (req, res) => { 
      
 
     res.send(data);
@@ -217,4 +297,5 @@ app.get('/test1', (req, res) => {
   
     console.error(`Got error: ${e.message}`);
   });
+
 
