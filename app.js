@@ -29,13 +29,6 @@ app.use(function(req, res, next){
   next();
 })
 
-global.data = "data";
-global.value = "value";
-global.current = "current";
-global.stats = "new";
-global.playerPID = "x";
-global.playerData = "dhoni";
-global.weather = "clear";
 
 const PORT = process.env.PORT || 8080;
 
@@ -43,59 +36,180 @@ const PORT = process.env.PORT || 8080;
   app.listen(PORT, () => {
   
   
-    http.get('http://cricapi.com/api/matches/YQcxw12HpBMe1UaJ6TsKtZTC3Br2', (res) => {
-    
-  
-    const { statusCode } = res;
-    const contentType = res.headers['content-type'];
-   
-    let error;
-    if (statusCode !== 200) {
-      error = new Error('Request Failed.\n' +
-                        `Status Code: ${statusCode}`);
-    } else if (!/^application\/json/.test(contentType)) {
-      error = new Error('Invalid content-type.\n' +
-                        `Expected application/json but received ${contentType}`);
-    }
-    if (error) {
-      console.error(error.message);
-  
-      res.resume();
-      return;
-    }
-  
+       // //// Requesting the site for response ///////
 
-    let rawData = '';
-    res.on('data', (chunk) => { rawData += chunk; });
-    res.on('end', () => {
-      try {
-        const parsedData = JSON.parse(rawData);
-        value = parsedData;
-        console.log(parsedData);
-        m = parsedData.matches.length;
+    req('http://www.nrclitchi.org/', (error, response, html) => {
+
+
+    if (!error && response.statusCode == 200) {
+
+        console.log("So far so good ...");
+
+        ///// Using cheerio to fetch the site details//////
+
+        const $ = cheerio.load(html);
+
+        ///// '$' will be used as a reference to getting all website details ///////  
+
+        const siteHeading = $('.header-row');
+        console.log('\n\n');
+
+
+        console.log("Getting Headers ..." + '\n\n\n');
+
+        const site_header = siteHeading.text().replace(/\s\s+/g, ' ');
+        console.log(site_header + '\n');
+        console.log('\n\n');
+
+
+        //// Looping over tags with id (notice)
+
+        console.log("Getting Notices ..." + '\n\n\n');
+
+        var notices_name = {} 
+        var notices_url = {} 
+    
+        var key1 = 'notices_name';
+        var key2 = 'notices_url';
+     
+        notices_name[key1] = [];
+        notices_url[key2] = []; 
+
+        $('#notice a').each((i, el) => {
+
+            const notice_name = $(el).attr('title');
+            const notice_url = $(el).attr('href');
+            
+            notices_name[key1].push(notice_name);          
+            notices_url[key2].push(notice_url);
+
+        })
+
+        console.log(notices_name);
+        console.log(notices_url);
+        console.log('\n\n');
+
+
+        /// News and events
+
+        console.log("Getting News and Events ..." + '\n\n\n');
+
+        var new_name = {} 
+        var new_url = {} 
+    
+        var key1 = 'news_name';
+        var key2 = 'news_url';
+     
+        new_name[key1] = [];
+        new_url[key2] = []; 
+
+        $('#news a').each((i, el) => {
+
+            const news_name = $(el).attr('title');
+            const news_url = $(el).attr('href');
+            
+            new_name[key1].push(news_name);          
+            new_url[key2].push(news_url);
+
+        })
+
+        console.log(new_name);
+        console.log(new_url);
+        console.log('\n\n');
+
+
+        /// Tenders
+
+        console.log("Getting Tenders ..." + '\n\n\n');
+
+        var tender_name = {} 
+        var tender_url = {} 
+    
+        var key1 = 'tender_name';
+        var key2 = 'tender_url';
+     
+        tender_name[key1] = [];
+        tender_url[key2] = []; 
+
+        $('#tenders a').each((i, el) => {
+
+            const tenders_name = $(el).attr('title');
+            const tenders_url = $(el).attr('href');
+           
+            tender_name[key1].push(tenders_name);          
+            tender_url[key2].push(tenders_url);     
+
+        })
+       
+        console.log(tender_name);
+        console.log(tender_url);
+        console.log('\n\n');
+
+        /// Recruitments
+        
+
+        console.log("Getting Recruitment ..." + '\n\n\n');
+
+        var recruit_name = {} 
+        var recruit_url = {} 
+    
+        var key1 = 'recruit_name';
+        var key2 = 'recruit_url';
+     
+        recruit_name[key1] = [];
+        recruit_url[key2] = []; 
+
+        $('#recruitment a').each((i, el) => {
+
+            const recruitment_name = $(el).attr('title');
+            const recruitment_url = $(el).attr('href');
+        
+            recruit_name[key1].push(recruitment_name);          
+            recruit_url[key2].push(recruitment_url);      
+ 
+        })
+
+       
+        console.log(recruit_name);
+        console.log(recruit_url);
+        console.log('\n\n');
+
+        /// Upcoming Events
+
+         console.log("Getting Upcoming Events ..." + '\n\n\n');
+
+         $('#list list-icons a').each((i, el) => {
+ 
+             const event_name = $(el).attr('title');
+             const event_url = $(el).attr('href');
+             console.log(event_name + '\n');
+             console.log(event_url + '\n');
+ 
+         })
+
+          
+    }
+
+    
+});
+
+
+
+
+  }).on('error', (e) => {
   
-      } catch (e) {
-        console.error(e.message);
-      }
+    console.error(`Got error: ${e.message}`);
+
+});
+
+app.get('/test1', (req, res) => { 
+     
+
+    res.send("recruit_url");
   
   
-   
-  
-    });
   }).on('error', (e) => {
   
     console.error(`Got error: ${e.message}`);
   });
 
-});
- 
-app.get('/test', (req, res) => {
-   
-
- res.send("vimaal");
-
-     }).on('error', (e) => {
-     
-       console.error(`Got error: ${e.message}`);
-     
-})
