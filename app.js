@@ -7,6 +7,7 @@ var querystring = require("querystring");
 var upload = multer();
 const req = require("request");
 var cheerio = require("cheerio");
+var research_page = require("./research_page");
 
 const app = express();
 
@@ -238,6 +239,14 @@ app
 app
   .get("/test1", (req, res) => {
     res.send(data);
+  })
+  .on("error", e => {
+    console.error(`Got error: ${e.message}`);
+  });
+
+app
+  .get("/research_papers", (req, res) => {
+    res.send(books_urls);
   })
   .on("error", e => {
     console.error(`Got error: ${e.message}`);

@@ -125,4 +125,4 @@ app
     console.error(`Got error: ${e.message}`);
   });
 
-exports.research_paper_urls;
+exports.books_urls;
