@@ -244,9 +244,10 @@ app
                   author_name = $(el).text();
                 });
 
-                var key1 = author_name;
+                var key1 = "research_papers";
 
                 books_url[key1] = [];
+                books_url[key1].push(author_name);
 
                 $(".list-ordened-style-3 li").each((i, el) => {
                   const book_name = $(el)
