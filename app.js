@@ -75,111 +75,111 @@ app
         ///  Notices
         //// Looping over tags with id (notice)
 
-        // console.log("Getting Notices ..." + "\n\n\n");
+        console.log("Getting Notices ..." + "\n\n\n");
 
-        // var notices_name = {};
-        // var notices_url = {};
+        var notices_name = {};
+        var notices_url = {};
 
-        // var key1 = "notices_name";
-        // var key2 = "notices_url";
+        var key1 = "notices_name";
+        var key2 = "notices_url";
 
-        // notices_name[key1] = [];
-        // notices_url[key2] = [];
+        notices_name[key1] = [];
+        notices_url[key2] = [];
 
-        // $("#notice a").each((i, el) => {
-        //   const notice_name = $(el).attr("title");
-        //   const notice_url = $(el).attr("href");
+        $("#notice a").each((i, el) => {
+          const notice_name = $(el).attr("title");
+          const notice_url = $(el).attr("href");
 
-        //   notices_name[key1].push(notice_name, notice_url);
-        //   //notices_url[key2].push(notice_url);
-        // });
+          notices_name[key1].push(notice_name, notice_url);
+          //notices_url[key2].push(notice_url);
+        });
 
-        // notices_name_value = notices_name;
-        // console.log(notices_name);
-        // notices_url_value = notices_url;
-        // console.log(notices_url);
-        // console.log("\n\n");
+        notices_name_value = notices_name;
+        console.log(notices_name);
+        notices_url_value = notices_url;
+        console.log(notices_url);
+        console.log("\n\n");
 
-        // /// News and events
+        /// News and events
 
-        // console.log("Getting News and Events ..." + "\n\n\n");
+        console.log("Getting News and Events ..." + "\n\n\n");
 
-        // var new_name = {};
-        // var new_url = {};
+        var new_name = {};
+        var new_url = {};
 
-        // var key1 = "news_name";
-        // var key2 = "news_url";
+        var key1 = "news_name";
+        var key2 = "news_url";
 
-        // new_name[key1] = [];
-        // new_url[key2] = [];
+        new_name[key1] = [];
+        new_url[key2] = [];
 
-        // $("#news a").each((i, el) => {
-        //   const news_name = $(el).attr("title");
-        //   const news_url = $(el).attr("href");
+        $("#news a").each((i, el) => {
+          const news_name = $(el).attr("title");
+          const news_url = $(el).attr("href");
 
-        //   new_name[key1].push(news_name, news_url);
-        //   //new_url[key2].push(news_url);
-        // });
+          new_name[key1].push(news_name, news_url);
+          //new_url[key2].push(news_url);
+        });
 
-        // new_name_value = new_name;
-        // console.log(new_name);
-        // //new_url_value = new_url;
-        // console.log(new_url);
-        // console.log("\n\n");
+        new_name_value = new_name;
+        console.log(new_name);
+        //new_url_value = new_url;
+        console.log(new_url);
+        console.log("\n\n");
 
-        // /// Tenders
+        /// Tenders
 
-        // console.log("Getting Tenders ..." + "\n\n\n");
+        console.log("Getting Tenders ..." + "\n\n\n");
 
-        // var tender_name = {};
-        // var tender_url = {};
+        var tender_name = {};
+        var tender_url = {};
 
-        // var key1 = "tender_name";
-        // var key2 = "tender_url";
+        var key1 = "tender_name";
+        var key2 = "tender_url";
 
-        // tender_name[key1] = [];
-        // tender_url[key2] = [];
+        tender_name[key1] = [];
+        tender_url[key2] = [];
 
-        // $("#tenders a").each((i, el) => {
-        //   const tenders_name = $(el).attr("title");
-        //   const tenders_url = $(el).attr("href");
+        $("#tenders a").each((i, el) => {
+          const tenders_name = $(el).attr("title");
+          const tenders_url = $(el).attr("href");
 
-        //   tender_name[key1].push(tenders_name, tenders_url);
-        //   // tender_url[key2].push(tenders_url);
-        // });
+          tender_name[key1].push(tenders_name, tenders_url);
+          // tender_url[key2].push(tenders_url);
+        });
 
-        // tender_name_value = tender_name;
-        // console.log(tender_name);
-        // //tender_url_value = tender_url;
-        // console.log(tender_url);
-        // console.log("\n\n");
+        tender_name_value = tender_name;
+        console.log(tender_name);
+        //tender_url_value = tender_url;
+        console.log(tender_url);
+        console.log("\n\n");
 
-        // /// Recruitments
+        /// Recruitments
 
-        // console.log("Getting Recruitment ..." + "\n\n\n");
+        console.log("Getting Recruitment ..." + "\n\n\n");
 
-        // var recruit_name = {};
-        // var recruit_url = {};
+        var recruit_name = {};
+        var recruit_url = {};
 
-        // var key1 = "recruit_name";
-        // var key2 = "recruit_url";
+        var key1 = "recruit_name";
+        var key2 = "recruit_url";
 
-        // recruit_name[key1] = [];
-        // recruit_url[key2] = [];
+        recruit_name[key1] = [];
+        recruit_url[key2] = [];
 
-        // $("#recruitment a").each((i, el) => {
-        //   const recruitment_name = $(el).attr("title");
-        //   const recruitment_url = $(el).attr("href");
+        $("#recruitment a").each((i, el) => {
+          const recruitment_name = $(el).attr("title");
+          const recruitment_url = $(el).attr("href");
 
-        //   recruit_name[key1].push(recruitment_name, recruitment_url);
-        //   //recruit_url[key2].push(recruitment_url);
-        // });
+          recruit_name[key1].push(recruitment_name, recruitment_url);
+          //recruit_url[key2].push(recruitment_url);
+        });
 
-        // recruit_name_value = recruit_name;
-        // console.log(recruit_name);
-        // //recruit_url_value = recruit_url;
-        // console.log(recruit_url);
-        // console.log("\n\n");
+        recruit_name_value = recruit_name;
+        console.log(recruit_name);
+        //recruit_url_value = recruit_url;
+        console.log(recruit_url);
+        console.log("\n\n");
 
         /// Upcoming Events
 
