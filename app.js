@@ -54,7 +54,7 @@ global.staff_name_value =[];
 
 const PORT = process.env.PORT || 8080;
 
-event.EventEmitter.defaultMaxListeners = 15;
+event.EventEmitter.defaultMaxListeners = 20;
 
 app
   .listen(PORT, () => {
