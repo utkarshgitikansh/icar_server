@@ -614,9 +614,10 @@ app
                                     var patrika_url = {};
                             
                                     var key1 = "patrika";
-                                   // var key2 = "PDFs";
+                                    var key2 = "PDFs";
                             
                                     patrika_url[key1] = [];
+                                    patrika_url[key2] = [];
                                     //newsLetter_url[key2] = [];
                             
                                     $("[class = 'list list-icons list-borders list-secondary'] li a").each((i, el) => {
@@ -625,6 +626,11 @@ app
                                       patrika_url[key1].push(newsLetter);
                                     });
                             
+                                    $("[class = 'list list-icons list-borders list-secondary'] li a").each((i, el) => {
+                                      const newsLetter = $(el).text();
+                            
+                                      patrika_url[key2].push(newsLetter);
+                                    });
                                     // $("[class = 'text-center'] a").each((i, el) => {
                                     //   const element = $(el).attr("href");
                             
