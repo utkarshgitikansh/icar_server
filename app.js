@@ -672,9 +672,10 @@ app
                                       var archives_url = {};
                               
                                       var key1 = "archives";
-                                     // var key2 = "PDFs";
+                                      var key2 = "PDFs";
                               
                                      archives_url[key1] = [];
+                                     archives_url[key2] = [];
                                       //newsLetter_url[key2] = [];
                               
                                       $("[class = 'list list-icons'] li a").each((i, el) => {
@@ -687,6 +688,18 @@ app
                                         const archives = $(el).attr("href");
                               
                                         archives_url[key1].push(archives);
+                                      });
+
+                                      $("[class = 'list list-icons'] li a").each((i, el) => {
+                                        const archives = $(el).text();
+                              
+                                        archives_url[key2].push(archives);
+                                      });
+
+                                      $("[class = 'list list-icons list-borders list-secondary'] li a").each((i, el) => {
+                                        const archives = $(el).text();
+                              
+                                        archives_url[key2].push(archives);
                                       });
                               
                                       // $("[class = 'text-center'] a").each((i, el) => {
