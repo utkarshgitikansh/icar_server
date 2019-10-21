@@ -7,7 +7,7 @@ var querystring = require("querystring");
 var upload = multer();
 const req = require("request");
 var cheerio = require("cheerio");
-const maxListenersExceededWarning = require('max-listeners-exceeded-warning');
+//const maxListenersExceededWarning = require('max-listeners-exceeded-warning');
 const event = require('events');
 //var research_page = require("./research_page");
 
@@ -457,10 +457,10 @@ app
         var extension_url = {};
 
         var key1 = "extension";
-        //var key2 = "writer";
+        var key2 = "writer";
 
         extension_url[key1] = [];
-        //extension_url[key2] = [];
+        extension_url[key2] = [];
 
         $("[class = 'list list-icons list-borders list-secondary'] li a").each((i, el) => {
           const extension = $(el).attr("href");
@@ -468,11 +468,11 @@ app
           extension_url[key1].push(extension);
         });
 
-        // $("[title = 'Download PDF']").each((i, el) => {
-        //   const extension = $(el).attr("href");
+        $("[class = 'list list-icons list-borders list-secondary'] li a").each((i, el) => {
+          const extension = $(el).text();
 
-        //   extension_url[key2].push(extension);
-        // });
+          extension_url[key2].push(extension);
+        });
 
         extension_name_value = extension_url;
         console.log(extension_url); 
